@@ -25,29 +25,29 @@ print(B)
 
 
 def distribution(a, N, k, B):
-    # Step 1: Calculate S and M
 
-    S = sum(a)                # S is the sum of all elements in a
-    M = S // k                # M is the result of floor division of S by k
-    B0 = S - M * k            # B0 is the number of tokens that don't fit in packages
 
-    # Step 2: Adjust a_n for the last B0 types
+    S = sum(a)               
+    M = S // k              
+    B0 = S - M * k            
+
+ 
     for n in range(N - B0 + 1, N + 1):
-        a[n - 1] -= 1         # Note: adjusting the index for zero-based indexing
+        a[n - 1] -= 1       
 
-    B = B + B0                # Total number of tokens that don't fall into packages
+    B = B + B0                
     # for optimized
     # a.sort()
     # print("a sorted: ",a)
-    # Step 3: Calculate ln and rn
-    l = np.zeros(N, dtype=int)  # Array for ln
-    r = np.zeros(N, dtype=int)  # Array for rn
+ 
+    l = np.zeros(N, dtype=int)  
+    r = np.zeros(N, dtype=int)  
     for n in range(1, N + 1):
-        l[n - 1] = sum(a[:n-1]) + 1  # ln = sum of elements up to n-1 + 1
-        r[n - 1] = sum(a[:n])        # rn = sum of elements up to n
+        l[n - 1] = sum(a[:n-1]) + 1  
+        r[n - 1] = sum(a[:n])        
 
-    # Step 4: Create the composition matrix CM
-    CM = np.zeros((N, M), dtype=float)  # Initialize CM with zeros
+   
+    CM = np.zeros((N, M), dtype=float) 
 
     for i in range(1, k + 1):
         for j in range(1, M + 1):
